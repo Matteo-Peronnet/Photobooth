@@ -12,7 +12,6 @@ class MainWindow extends BrowserWindow {
                 nodeIntegration: true
             }
         });
-
         this.loadURL(url);
     }
 }
