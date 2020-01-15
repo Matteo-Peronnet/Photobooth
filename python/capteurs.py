@@ -1,16 +1,43 @@
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+import RPi.GPIO as GPIO
+import time
+import datetime
+import zerorpc
 
-def button_callback(channel):
-    print("Button was pushed!")
+c = zerorpc.Client()
+c.connect("tcp://127.0.0.1:4242")
 
-GPIO.setwarnings(False) # Ignore warning for now
 
-GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
 
-GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input pin and set initial value to be pulled low (off)
+GPIO.setmode(GPIO.BCM)
 
-GPIO.add_event_detect(10,GPIO.RISING,callback=button_callback) # Setup event on pin 10 rising edge
+GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
+GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
+GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
+GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
 
-message = input("Press enter to quit\n\n") # Run until someone presses enter
-
-GPIO.cleanup() # Clean up
+try:
+    while True:
+        if GPIO.input(23) == False: 
+             print('Button Pressed...')
+             c.event("BUTTON")
+             time.sleep(1)
+        elif GPIO.input(19) == False:
+            print('Droite Pressed...')
+            c.event("KEY_RIGHT")
+            c.event("RPC")
+            time.sleep(0.2)
+        elif GPIO.input(16) == False:
+            print('Haut Pressed...')
+            c.event("KEY_UP")
+            time.sleep(0.2)
+        elif GPIO.input(20) == False:
+            print('Bas Pressed...')
+            c.event("KEY_DOWN")
+            time.sleep(0.2)
+        elif GPIO.input(21) == False:
+            print('Gauche Pressed...')
+            c.event("KEY_LEFT")
+            time.sleep(0.2)
+except:
+    GPIO.cleanup()
