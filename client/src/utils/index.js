@@ -1,17 +1,9 @@
-import React from 'react';
-import { notification } from 'antd';
-import {shell} from "electron";
 
+export const EVENTS = {
+    BUTTON: 'BUTTON',
+    KEY_UP: 'KEY_UP',
+    KEY_RIGHT: 'KEY_RIGHT',
+    KEY_DOWN: 'KEY_DOWN',
+    KEY_LEFT: 'KEY_LEFT'
+}
 
-export const Ov = (obj) => Object.values(obj)
-export const openUrl = (url) => shell.openExternal(url);
-
-export const openNotificationByType = (type, title, message) => {
-    notification[type]({
-        message: title,
-        description: message,
-        duration: 2
-    });
-};
-
-export const isInTimerView = (state) => state.router.location.pathname === '/timer'
