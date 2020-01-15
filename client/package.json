@@ -1,0 +1,79 @@
+{
+  "name": "epsi-photobooth",
+  "version": "1.0.0",
+  "description": "Epsi photobooth",
+  "author": "Matteo Peronnet, Inc <matteo-peronnet@hotmail.fr>",
+  "email": "matteo-peronnet@hotmail.fr",
+  "url": "https://wwww.epsi.fr/",
+  "main": "index.js",
+  "scripts": {
+    "electron": "NODE_ENV=development electron .",
+    "rebuild": "electron-builder install-app-deps",
+    "start": "webpack-dev-server --config=./webpack.dev.config.js",
+    "build": "NODE_ENV=production webpack --config webpack.build.config.js",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "rm -rf dist && npm run build && electron-builder -l --armv7l"
+  },
+  "build": {
+    "appId": "epsi.photobooth",
+    "deb": {
+      "fpm": [
+        "--architecture",
+        "armhf"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "epsi.photobooth"
+    }
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "css-loader": "^2.1.0",
+    "devtron": "^1.4.0",
+    "electron": "^4.0.7",
+    "electron-builder": "^20.39.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "versiony-cli": "^1.3.0",
+    "webpack-dev-server": "^2.11.3"
+  },
+  "dependencies": {
+    "@sentry/browser": "^4.6.4",
+    "@sentry/electron": "^0.17.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.22.0",
+    "dotenv": "^6.2.0",
+    "dotize": "^0.3.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.0.1",
+    "electron-localshortcut": "^1.1.1",
+    "electron-log": "^3.0.1",
+    "electron-simple-updater": "^1.4.4",
+    "electron-store": "^2.0.0",
+    "electron-updater": "^4.0.6",
+    "history": "^4.7.2",
+    "json-loader": "^0.5.7",
+    "keytar": "^4.4.1",
+    "moment": "^2.24.0",
+    "moment-duration-format": "^2.2.2",
+    "normalizr": "^3.3.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-config": "^1.0.0-beta.4",
+    "react-router-dom": "^4.3.1",
+    "webpack": "^2.3.2"
+  },
+  "license": "ISC"
+}
