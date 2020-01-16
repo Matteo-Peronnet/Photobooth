@@ -2,20 +2,27 @@ const electron = require('electron');
 const MainWindow = require('./app/mainWindow');
 const isDev = require('electron-is-dev');
 const { app, ipcMain, Menu } = electron;
-const zerorpc = require("zerorpc");
 
+/** RASPBERRY COMMUNICATION **/
+
+const express = require( "express" );
+const server = express();
+const http = require( "http" );
+server.use( express.static( "./public" ) ); // where the web page code goes
+const http_server = http.createServer( server ).listen( 8000 );
+const http_io = require( "socket.io" )( http_server );
+
+http_io.on( "connection", function( httpsocket ) {
+    httpsocket.on( 'event', function( name ) {
+        console.log(name)
+        mainWindow.webContents.send('event' , name)
+    });
+});
+
+/** **/
 let mainWindow;
 
 process.setMaxListeners(Infinity);
-
-var server = new zerorpc.Server({
-    event: function(name, reply) {
-        reply();
-        mainWindow.webContents.send('event' , name)
-    }
-});
-
-server.bind("tcp://0.0.0.0:4242");
 
 app.on('ready', () => {
 
