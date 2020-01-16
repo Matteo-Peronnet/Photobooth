@@ -51,7 +51,7 @@ app.on('ready', () => {
         app.dock.hide();
     }
 
-    if(isDev) {
+    if(false) {
         const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
         [REACT_DEVELOPER_TOOLS].forEach(extension => {
             installExtension(extension)
