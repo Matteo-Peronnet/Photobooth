@@ -17,9 +17,7 @@
     "start": "webpack-dev-server --config=./webpack.dev.config.js",
     "build": "NODE_ENV=production webpack --config webpack.build.config.js",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "rm -rf dist && npm run build && electron-builder -l --armv7l",
-    "rebuild:zeromq:raspberry": "cd node_modules/zeromq && npm run build:libzmq && node-gyp rebuild --target=4.0.7 --arch=armv7l --dist-url=https://electronjs.org/headers",
-    "rebuild:zeromq:mac": "cd node_modules/zeromq && npm run build:libzmq && node-gyp rebuild --target=4.0.7 --arch=x64 --dist-url=https://electronjs.org/headers"
+    "pack": "rm -rf dist && npm run build && electron-builder -l --armv7l"
   },
   "build": {
     "appId": "epsi.photobooth",
@@ -70,6 +68,7 @@
     "electron-simple-updater": "^1.4.4",
     "electron-store": "^2.0.0",
     "electron-updater": "^4.0.6",
+    "express": "^4.17.1",
     "history": "^4.7.2",
     "json-loader": "^0.5.7",
     "moment": "^2.24.0",
@@ -82,8 +81,8 @@
     "react-router": "^4.3.1",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
-    "webpack": "^2.3.2",
-    "zerorpc": "^0.9.8"
+    "socket.io": "^1.7.2",
+    "webpack": "^2.3.2"
   },
   "license": "ISC"
 }

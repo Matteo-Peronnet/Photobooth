@@ -1,10 +1,5 @@
 import RPi.GPIO as GPIO
-import time
-import datetime
 from socketIO_client import SocketIO, LoggingNamespace
-import sys
-
-
 
 GPIO.setmode(GPIO.BCM)
 
@@ -16,7 +11,7 @@ GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
 
 try:
     while True:
-        with SocketIO( 'localhost', 3000, LoggingNamespace ) as socketIO:
+        with SocketIO('127.0.0.1', 8000, LoggingNamespace) as socketIO:
             if GPIO.input(23) == False: 
                 print('Button Pressed...')
                 socketIO.emit( 'event', "BUTTON")

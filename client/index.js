@@ -2,26 +2,27 @@ const electron = require('electron');
 const MainWindow = require('./app/mainWindow');
 const isDev = require('electron-is-dev');
 const { app, ipcMain, Menu } = electron;
-var express = require( "express" );
-var app = express();
-var http = require( "http" );
-app.use( express.static( "./public" ) ); // where the web page code goes
-var http_server = http.createServer( app ).listen( 3000 );
-var http_io = require( "socket.io" )( http_server );
 
-let mainWindow;
+/** RASPBERRY COMMUNICATION **/
 
-process.setMaxListeners(Infinity);
-
-
-        
-
+const express = require( "express" );
+const server = express();
+const http = require( "http" );
+server.use( express.static( "./public" ) ); // where the web page code goes
+const http_server = http.createServer( server ).listen( 8000 );
+const http_io = require( "socket.io" )( http_server );
 
 http_io.on( "connection", function( httpsocket ) {
     httpsocket.on( 'event', function( name ) {
+        console.log(name)
         mainWindow.webContents.send('event' , name)
     });
 });
+
+/** **/
+let mainWindow;
+
+process.setMaxListeners(Infinity);
 
 app.on('ready', () => {
 
